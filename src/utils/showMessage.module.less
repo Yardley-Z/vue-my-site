@@ -1,0 +1,39 @@
+@import "../styles/var.less";
+@import "../styles/mixmin.less";
+.message {
+  // .self-center();
+  //   width: 150px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border-radius: 5px;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+  padding: 10px 30px;
+  line-height: 2;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  white-space: nowrap;
+  transform: scale(1.25) translate(-50%, -50%);
+  opacity: 0;
+  transition: 0.4s;
+  &-info {
+    background: @primary;
+  }
+  &-success {
+    background: @success;
+  }
+  &-warn {
+    background: @warn;
+  }
+  &-error {
+    background: @danger;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 7px;
+}

@@ -3,7 +3,7 @@
     <div class="left">
       <slot name="left"></slot>
     </div>
-    <div class="main">
+    <div class="main" id="aaa">
       <slot name="main"></slot>
     </div>
     <div class="right">
@@ -23,6 +23,7 @@ export default {};
   display: flex;
   .left,
   .right {
+    height: 100%;
     flex: 0 0 auto;
     overflow: hidden;
   }

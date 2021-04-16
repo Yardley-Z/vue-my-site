@@ -31,7 +31,7 @@ export default {
 <style scoped lang="less">
 @import "~@/styles/mixmin.less";
 .app-container {
-  .self-fill(fixed);
+  .self-fill();
 }
 .iconfont {
   /* color: aqua; */
