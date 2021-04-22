@@ -1,8 +1,10 @@
+import "./mock";
 import Vue from 'vue'
 import App from './App.vue';
 import router from './router'
 import "./styles/global.less";
-import showMessage from "@/utils/showMessage.js"
+import showMessage from "@/utils/showMessage.js";
+import "./api/banner";
 
 Vue.prototype.$showMessage = showMessage
 new Vue({

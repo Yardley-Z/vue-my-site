@@ -35,7 +35,7 @@ export default {
     changeLoad() {
       this.originLoader = true;
       setTimeout(() => {
-        this.everythigDone = true;
+        this.everythingDone = true;
         this.$emit("ImgChange");
       }, this.duration);
     },
