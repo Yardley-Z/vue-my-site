@@ -1,5 +1,10 @@
 <template>
-  <div class="home-container" ref="carouselItems" @wheel="handleWheel($event)">
+  <div
+    class="home-container"
+    ref="carouselItems"
+    @wheel="handleWheel($event)"
+    v-loading="isLoading"
+  >
     <ul
       class="carouselItems-container"
       :style="{ marginTop: getMarginTop }"
@@ -47,6 +52,7 @@ export default {
       index: 0,
       containerHeight: 0,
       canChangeCarouselItems: true,
+      isLoading: true,
     };
   },
   components: {
@@ -58,6 +64,7 @@ export default {
   // },
   async created() {
     this.banners = await getBanners();
+    this.isLoading = false;
   },
   methods: {
     changeIndex(i) {

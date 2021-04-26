@@ -5,7 +5,8 @@ import router from './router'
 import "./styles/global.less";
 import showMessage from "@/utils/showMessage.js";
 import "./api/banner";
-
+import direct from "@/direct/loading"
+Vue.directive('loading', direct)
 Vue.prototype.$showMessage = showMessage
 new Vue({
   router,

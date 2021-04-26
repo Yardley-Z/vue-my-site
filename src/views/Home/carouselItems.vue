@@ -114,11 +114,12 @@ export default {
         width: this.$refs.container.clientWidth,
         height: this.$refs.container.clientHeight,
       };
-
-      this.innerSize = {
-        width: this.$refs.img.clientWidth,
-        height: this.$refs.img.clientHeight,
-      };
+      if (this.$refs.img) {
+        this.innerSize = {
+          width: this.$refs.img.clientWidth,
+          height: this.$refs.img.clientHeight,
+        };
+      }
     },
     handleMouseMove(e) {
       const rect = this.$refs.container.getBoundingClientRect();
