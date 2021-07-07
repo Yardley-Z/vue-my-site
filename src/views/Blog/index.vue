@@ -1,8 +1,6 @@
 <template>
   <Layout>
-    <template #main>
-      <BlogList></BlogList>
-    </template>
+    <BlogList></BlogList>
     <template #right>
       <BlogCategory></BlogCategory>
     </template>

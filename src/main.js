@@ -5,11 +5,16 @@ import router from './router'
 import "./styles/global.less";
 import showMessage from "@/utils/showMessage.js";
 import "./api/banner";
-import direct from "@/direct/loading";
-Vue.directive('loading', direct)
+import vloading from "@/directives/loading";
+import vlazy from "@/directives/lazy"
+import './eventBus';
+import store from "@/store"
+Vue.directive('loading', vloading);
+Vue.directive('lazy', vlazy)
 Vue.prototype.$showMessage = showMessage
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app');
 

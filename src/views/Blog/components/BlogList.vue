@@ -1,21 +1,34 @@
 <template>
-  <div class="blog-list-container" v-loading="isLoading">
+  <div class="blog-list-container" v-loading="isLoading" ref="mainContainer">
     <ul>
       <li v-for="item in data.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
-          <a href="">
-            <img :src="item.thumb" :alt="item.title" :title="item.title" />
-          </a>
+          <RouterLink :to="{ name: 'BlogDetail', params: { id: item.id } }">
+            <img
+              v-lazy="item.thumb"
+              :src="item.thumb"
+              :alt="item.title"
+              :title="item.title"
+            />
+          </RouterLink>
         </div>
         <div class="main">
-          <a href="">
+          <RouterLink :to="{ name: 'BlogDetail', params: { id: item.id } }">
             <h2>{{ item.title }}</h2>
-          </a>
+          </RouterLink>
           <div class="aside">
             <span>日期：{{ formatDate(item.createDate) }}</span>
             <span>浏览：{{ item.scanNumber }}</span>
             <span>评论:{{ item.commentNumber }}</span>
-            <a href="/blog/cate/8" class="">{{ item.category.name }}</a>
+            <RouterLink
+              :to="{
+                name: 'CategoryBlog',
+                params: {
+                  categoryId: item.category.id,
+                },
+              }"
+              >{{ item.category.name }}</RouterLink
+            >
           </div>
           <div class="desc">
             {{ item.description }}
@@ -24,6 +37,12 @@
       </li>
     </ul>
     <!-- 分页放到这里 -->
+    <PageChange
+      :current="routeInfo.page"
+      :total="data.total"
+      :limit="routeInfo.limit"
+      @pageChange="handlePageChange"
+    />
   </div>
 </template>
 
@@ -31,26 +50,81 @@
 import fetchData from "@/mixin/fetchData.js";
 import { getBlogs } from "@/api/blog.js";
 import { formatDate } from "@/utils";
+import PageChange from "@/components/PageChange/PageChange";
 export default {
   mixins: [fetchData({})],
-  data() {
-    return {
-      obj: {
-        aaa: 1,
-      },
-    };
+  // data() {
+  //   return {
+  //     page: 0,
+  //     limit: 0,
+  //   };
+  // },
+  components: {
+    PageChange,
+  },
+  mounted() {
+    this.$bus.$on("setMainScroll", this.handleSetMainScroll);
+    this.$refs.mainContainer.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    this.$bus.$emit("mainScroll");
+    this.$refs.mainContainer.removeEventListener("scroll", this.handleScroll);
+    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
+  },
+  computed: {
+    routeInfo() {
+      const categoryId = +this.$route.params.categoryId || -1;
+      const page = +this.$route.query.page || 1;
+      const limit = +this.$route.query.limit || 10;
+      return {
+        categoryId,
+        page,
+        limit,
+      };
+    },
   },
   methods: {
     formatDate,
     async fetchData() {
-      return await getBlogs();
+      return await getBlogs(
+        this.routeInfo.page,
+        this.routeInfo.limit,
+        this.routeInfo.categoryId
+      );
+    },
+    async handlePageChange(newPage) {
+      // this.data = await this.fetchData();
+      let query = {
+        page: newPage,
+        limit: this.routeInfo.limit,
+      };
+      if (this.routeInfo.categoryId == -1) {
+        this.$router.push({ path: "/blog", query });
+      } else {
+        this.$router.push({
+          name: "CategoryBlog",
+          query,
+          params: {
+            categoryId: this.routeInfo.categoryId,
+          },
+        });
+      }
+    },
+    handleScroll() {
+      this.$bus.$emit("mainScroll", this.$refs.mainContainer);
+    },
+    handleSetMainScroll(scrollTop) {
+      this.$refs.mainContainer.scrollTop = scrollTop;
     },
   },
-  mounted() {
-    console.log(this.isLoading);
-  },
-  updated() {
-    console.log(JSON.parse(JSON.stringify(this.data)));
+  watch: {
+    async $route() {
+      this.isLoading = true;
+      // 滚动高度为0
+      this.$refs.mainContainer.scrollTop = 0;
+      this.data = await this.fetchData();
+      this.isLoading = false;
+    },
   },
 };
 </script>
@@ -64,6 +138,7 @@ export default {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  scroll-behavior: smooth;
   ul {
     list-style: none;
     margin: 0;

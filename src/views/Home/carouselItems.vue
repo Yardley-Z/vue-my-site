@@ -77,9 +77,9 @@ export default {
     if (this.$refs.spotLight) {
       this.$refs.spotLight.innerHTML = this.carousel.html;
     }
-    const style = document.createElement("style");
-    style.innerHTML = this.carousel.style;
-    document.head.appendChild(style);
+    // const style = document.createElement("style");
+    // style.innerHTML = this.carousel.style;
+    // document.head.appendChild(style);
     this.setSize();
     this.mouseX = this.center.x;
     this.mouseY = this.center.y;
@@ -153,7 +153,7 @@ export default {
 <style lang="less" scoped>
 @import "~@/styles/global.less";
 @import "~@/styles/var.less";
-// @import "~@/styles/spotLight.css";
+@import "~@/styles/spotLight.css";
 .carousel-items-container {
   position: relative;
   // background-color: @dark;

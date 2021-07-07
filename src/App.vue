@@ -6,16 +6,17 @@
           <SideAside />
         </div>
       </template>
-      <template #main>
-        <RouterView />
-      </template>
+
+      <RouterView />
     </Layout>
+    <ToTop />
   </div>
 </template>
 
 <script>
 import Layout from "@/components/Layout";
 import SideAside from "@/components/SideAside";
+import ToTop from "@/components/ToTop";
 export default {
   data() {
     return {};
@@ -23,6 +24,7 @@ export default {
   components: {
     Layout,
     SideAside,
+    ToTop,
   },
   methods: {},
 };

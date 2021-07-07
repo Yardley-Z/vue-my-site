@@ -3,14 +3,14 @@
     class="home-container"
     ref="carouselItems"
     @wheel="handleWheel($event)"
-    v-loading="isLoading"
+    v-loading="loading"
   >
     <ul
       class="carouselItems-container"
       :style="{ marginTop: getMarginTop }"
       @transitionend="handleTransitionend"
     >
-      <li v-for="item in banners" :key="item.id">
+      <li v-for="item in data" :key="item.id">
         <CarouselItems :carousel="item" />
       </li>
     </ul>
@@ -24,7 +24,7 @@
       </div>
       <div
         class="arrow arrow-down"
-        v-show="index < banners.length - 1"
+        v-show="index < data.length - 1"
         @click="changeIndex(index + 1)"
       >
         <Icon kind="arrow-up1" />
@@ -32,7 +32,7 @@
     </div>
     <ul class="indicator-container">
       <li
-        v-for="(ele, i) in banners"
+        v-for="(ele, i) in data"
         :key="ele.id"
         :class="{ active: index == i }"
         @click="changeIndex(i)"
@@ -44,7 +44,7 @@
 <script>
 import Icon from "@/components/Icon";
 import CarouselItems from "./carouselItems";
-import { getBanners } from "@/api/banner";
+import {mapState} from "vuex"
 export default {
   data() {
     return {
@@ -62,9 +62,8 @@ export default {
   // async created() {
   //   this.banner = await banner();
   // },
-  async created() {
-    this.banners = await getBanners();
-    this.isLoading = false;
+  created() {
+    this.$store.dispatch("banner/fetchBanner");
   },
   methods: {
     changeIndex(i) {
@@ -78,7 +77,7 @@ export default {
     },
     handleWheel(e) {
       if (this.canChangeCarouselItems) {
-        if (e.deltaY > 0 && this.index < this.banners.length - 1) {
+        if (e.deltaY > 0 && this.index < this.data.length - 1) {
           this.index++;
           this.canChangeCarouselItems = false;
         } else if (e.deltaY < 0 && this.index > 0) {
@@ -100,6 +99,7 @@ export default {
     getMarginTop() {
       return -this.index * this.containerHeight + "px";
     },
+    ...mapState("banner",['loading','data'])
   },
 };
 </script>

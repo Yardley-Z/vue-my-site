@@ -22,6 +22,36 @@ export async function getBlogs(page = 1, limit = 10, categoryid = -1) {
  * 获取博客分类
  * @returns 
  */
-export async function getBlogTypes() {
+export async function getBlogCategories() {
     return await request.get("/api/blogtype")
+}
+/**
+ * 
+ */
+export async function getBlog(id) {
+    return await request.get(`/api/blog/${id}`);
+}
+/**
+ * 
+ * @param {String} commentInfo 评论
+ * @returns 
+ */
+export async function postComment(commentInfo) {
+    return await request.post(`/api/comment`, commentInfo);
+}
+/**
+ * 
+ * @param {*} blogid 
+ * @param {*} page 
+ * @param {*} limit 
+ * @returns 
+ */
+export async function getComments(blogid, page = 1, limit = 10) {
+    return await request.get("/api/comment", {
+        params: {
+            blogid,
+            page,
+            limit,
+        },
+    });
 }

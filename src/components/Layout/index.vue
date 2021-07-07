@@ -3,8 +3,8 @@
     <div class="left">
       <slot name="left"></slot>
     </div>
-    <div class="main" id="aaa">
-      <slot name="main"></slot>
+    <div class="main">
+      <slot></slot>
     </div>
     <div class="right">
       <slot name="right"></slot>
