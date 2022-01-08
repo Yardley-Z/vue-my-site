@@ -2,7 +2,7 @@
   <div class="avator-container">
     <img
       class="avator-img"
-      :src="url"
+      :src="baseUrl+url"
       :style="{
         width: size + 'px',
         height: size + 'px',
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {baseUrl} from "@/utils"
 export default {
   props: {
     url: {
@@ -22,6 +23,11 @@ export default {
       type: Number,
     },
   },
+  data (){
+    return {
+      baseUrl
+    }
+  }
 };
 </script>
 

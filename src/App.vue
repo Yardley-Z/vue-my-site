@@ -3,10 +3,9 @@
     <Layout>
       <template #left>
         <div class="left">
-          <SideAside />
+          <SideAside :dataSetting="data"/>
         </div>
       </template>
-
       <RouterView />
     </Layout>
     <ToTop />
@@ -17,6 +16,7 @@
 import Layout from "@/components/Layout";
 import SideAside from "@/components/SideAside";
 import ToTop from "@/components/ToTop";
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
@@ -27,6 +27,12 @@ export default {
     ToTop,
   },
   methods: {},
+  created (){
+    this.$store.dispatch("setting/fetchSetting")
+  },
+  computed:{
+  ...mapState("setting",['loading','data'])
+  }
 };
 </script>
 

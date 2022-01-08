@@ -1,9 +1,9 @@
 <template>
   <div class="sideAside-container">
-    <Avator :url="AvatorUrl" :size="80" />
+    <Avator :url="avatorUrl" :size="80" />
     <Menu />
-    <Contact />
-    <p>粤ICP备47241119号</p>
+    <Contact :contactContent="dataSetting"/>
+    <p>{{dataSetting.icp}}</p>
   </div>
 </template>
 
@@ -13,13 +13,26 @@ import AvatorUrl from "@/assets/xiaomizhou.jpg";
 import Menu from "./Menu";
 import Contact from "./Contact";
 export default {
+  props:{
+    dataSetting: {
+      require:true
+    }
+  },
   components: {
     Avator,
     Menu,
     Contact,
   },
+  computed:{
+    avatorUrl (){
+      return this.dataSetting.avatar
+    }
+  },
+  mounted (){
+    console.log(this.dataSetting)
+  },
   data() {
-    return { AvatorUrl };
+    return {};
   },
 };
 </script>

@@ -5,35 +5,35 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-git"></use>
         </svg>
-        <span>Yardley-Z</span>
+        <a :href="contactContent.github"><span>{{contactContent.githubName}}-Z</span></a>
       </li>
       <li>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-185078emailmailstreamline"></use>
         </svg>
-        <a href="mailto:657400058@qq.com"><span>657400058@qq.com</span></a>
+        <a :href="'mailto:'+contactContent.mail"><span>{{contactContent.mail}}</span></a>
       </li>
       <li>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-qqicon"></use>
         </svg>
         <a
-          href="tencent://message/?uin=657400058&Site=&Menu=yes"
+          :href="'tencent://message/?uin='+contactContent.qq+'&Site=&Menu=yes'"
           target="_blank"
           rel="noopener noreferrer"
-          ><span>657400058</span></a
+          ><span>{{contactContent.qq}}</span></a
         >
         <div class="QR-code">
-          <img src="@/assets/bd56772e483a7d6ce92118a21a7c2df.jpg" alt="" />
+          <img :src="baseUrl+contactContent.qqQrCode" alt="" />
         </div>
       </li>
       <li>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-wechat"></use>
         </svg>
-        <a><span>zengyl657400058</span></a>
+        <a><span>{{contactContent.weixin}}</span></a>
         <div class="QR-code">
-          <img src="@/assets/5e0328540a8ded75aeb0718ae47e5cb.jpg" alt="" />
+          <img :src="baseUrl+contactContent.weixinQrCode" alt="" />
         </div>
       </li>
       <!-- <li class="iconfont icon-wechat1"></li> -->
@@ -42,17 +42,16 @@
 </template>
 
 <script>
+import {baseUrl} from "@/utils"
 export default {
   props: {
-    src: {
-      type: String,
-      require: true,
-    },
+      contactContent:{
+        require:true
+      }
   },
   data() {
     return {
-      //   opacity: 0,
-      //   show: false,
+        baseUrl
     };
   },
   methods: {
