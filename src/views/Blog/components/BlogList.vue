@@ -5,8 +5,8 @@
         <div class="thumb" v-if="item.thumb">
           <RouterLink :to="{ name: 'BlogDetail', params: { id: item.id } }">
             <img
-              v-lazy="item.thumb"
-              :src="item.thumb"
+              v-lazy="baseUrl+item.thumb"
+              :src="baseUrl+item.thumb"
               :alt="item.title"
               :title="item.title"
             />
@@ -51,14 +51,14 @@ import fetchData from "@/mixin/fetchData.js";
 import { getBlogs } from "@/api/blog.js";
 import { formatDate } from "@/utils";
 import PageChange from "@/components/PageChange/PageChange";
+import {baseUrl} from "@/utils"
 export default {
   mixins: [fetchData({})],
-  // data() {
-  //   return {
-  //     page: 0,
-  //     limit: 0,
-  //   };
-  // },
+  data() {
+    return {
+      baseUrl
+    };
+  },
   components: {
     PageChange,
   },

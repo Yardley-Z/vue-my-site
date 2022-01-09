@@ -8,13 +8,12 @@
     >
       <div
         class="img-container"
-        v-if="carousel.id != 1"
         ref="img"
         :style="imagePosition"
       >
         <ImageLoader
-          :src="carousel.bigImg"
-          :placeholder="carousel.midImg"
+          :src="baseUrl+carousel.bigImg"
+          :placeholder="baseUrl+carousel.midImg"
           :duration="5000"
           @ImgChange="showWords"
         />
@@ -22,16 +21,17 @@
       <div class="title" ref="title">{{ carousel.title }}</div>
       <div class="desc" ref="desc">{{ carousel.description }}</div>
     </div>
-    <div
+    <!-- <div
       class="spotLight-container"
       v-if="carousel.id == 1"
       ref="spotLight"
-    ></div>
+    ></div> -->
   </div>
 </template>
 
 <script>
 import ImageLoader from "@/components/ImageLoader";
+import {baseUrl} from "@/utils"
 export default {
   data() {
     return {
@@ -47,6 +47,7 @@ export default {
       innerSize: null,
       mouseX: 0, // 鼠标的横坐标
       mouseY: 0,
+      baseUrl
     };
   },
   computed: {
@@ -130,22 +131,6 @@ export default {
       this.mouseX = this.center.x;
       this.mouseY = this.center.y;
     },
-    // handleEnter(e) {
-    //   this.disX = e.clientX;
-    //   this.disY = e.clientY;
-    // },
-    // handleMove(e) {
-    //   this.newLeft = e.clientX - this.disX;
-    //   this.lastX = this.newLeft;
-    //   this.newTop = e.clientY - this.disY;
-    //   this.lastY = this.newTop;
-    //   // this.$refs.img.style.left = -this.newLeft + "px";
-    //   // this.$refs.img.style.top = -this.newTop + "px";
-    // },
-    // handleLeave(e) {
-    //   this.$refs.img.style.left = "-10%";
-    //   this.$refs.img.style.top = "-10%";
-    // },
   },
 };
 </script>

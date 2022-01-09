@@ -46,7 +46,7 @@ export default {
         // 目前正在加载更多
         return;
       }
-      const range = 100; // 顶一个可接受的范围，在这个范围内都算达到了底部
+      const range = 100; 
       const dec = Math.abs(dom.scrollTop + dom.clientHeight - dom.scrollHeight);
       if (dec <= range) {
         this.fetchMore();

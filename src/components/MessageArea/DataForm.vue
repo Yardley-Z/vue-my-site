@@ -1,5 +1,5 @@
 <template>
-  <form id="data-form-container" class="data-form-container" ref="form">
+  <form id="data-form-container" class="data-form-container" ref="form" @submit.prevent="handleSubmit">
     <div class="form-item">
       <div class="input-area">
         <input
